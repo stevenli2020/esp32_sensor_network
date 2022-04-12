@@ -1,0 +1,79 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# v=1.2
+
+import paho.mqtt.client as mqtt
+import mysql.connector
+import time
+
+
+brokerAddress="vernemq" 
+clientID="0001"
+userName="events"
+userPassword="3e90edbe0f6cbef1cec300719e684a0e5de648a7"
+
+
+
+# print(int("1ffe",16))
+# exit()
+
+
+
+def on_message(mosq, obj, msg):
+    print(msg.topic + " - " + str(msg.payload)[2:-1])
+    TOPIC=msg.topic.split("/")
+    MSG=(str(msg.payload)[2:-1]).split(":")
+    db = mysql.connector.connect(
+      host="database",
+      user="usvc",
+      password="O0zg2mbfs9!VQbM-",
+      database="sensor_db"
+    )    
+    cursor = db.cursor() 
+    if TOPIC[2]!="USVC" and TOPIC[3]=="E":
+        COORDINATOR_ID=TOPIC[2]
+        CLUSTER_ID=TOPIC[4]
+        NODE_ID=TOPIC[5]
+        EVENT_ID=int(MSG[1], 16)
+        NODE_TYPE=MSG[0]
+        NODE_BATT=int(MSG[2], 16)
+        NODE_DATA=int(MSG[3], 16)
+        print(str(EVENT_ID)+" - "+str(NODE_TYPE)+","+str(NODE_BATT)+","+str(NODE_DATA))            
+        sql = "INSERT INTO `EVENTS` (`CLUSTER_ID`, `NODE_ID`, `TYPE`, `DATA_TYPE`, `EVENT_ID`, `BAT_LVL`, `SENSOR_DATA`) VALUES ('"+CLUSTER_ID+"','"+NODE_ID+"','E','"+NODE_TYPE+"',"+str(EVENT_ID)+","+str(NODE_BATT)+","+str(NODE_DATA)+")"
+        cursor.execute(sql)
+        # db.commit()
+        sql = "UPDATE `NODES` SET `CLUSTER_ID`='"+CLUSTER_ID+"',`SENSOR_TYPE`='"+NODE_TYPE+"',`PARENT`='"+COORDINATOR_ID+"',`BATT_LVL`="+str(NODE_BATT)+",`SENSOR_DATA`="+str(NODE_DATA)+" WHERE `MAC`='"+NODE_ID+"'"
+        # print(sql)
+        cursor.execute(sql)
+        db.commit()
+    elif TOPIC[2]!="USVC" and TOPIC[3]=="STATUS":
+        COORDINATOR_ID=TOPIC[2]
+        if str(msg.payload)[2:-1]=='CONNECTED':
+            STATUS = "1"
+        else:
+            STATUS = "0"
+            print(str(msg.payload).strip())
+        print("Coordinator "+COORDINATOR_ID+" status - "+STATUS)     
+        sql = "UPDATE `COORDINATORS` SET `CONNECTED`="+STATUS+" WHERE `MAC`='"+COORDINATOR_ID+"';"
+        cursor.execute(sql)   
+        sql = "INSERT INTO `STATUS_EVENTS` (`TIME`, `NAME`, `EVENT`) VALUES (NOW(),'"+TOPIC[2]+"','"+str(msg.payload)[2:-1]+"');"
+        cursor.execute(sql)        
+        db.commit() 
+    elif TOPIC[2]=="USVC":
+        sql = "INSERT INTO `STATUS_EVENTS` (`TIME`, `NAME`, `EVENT`) VALUES (NOW(),'"+TOPIC[2]+"','"+str(msg.payload)[2:-1]+"');"
+        cursor.execute(sql)        
+        db.commit()        
+    cursor.close()
+    db.close()
+   
+
+mqttc = mqtt.Client(clientID)
+mqttc.username_pw_set(userName, password=userPassword)
+mqttc.will_set("/FSSN/USVC/EVENTS/STATUS","DISCONNECTED",1,True)
+mqttc.on_message = on_message
+mqttc.connect(brokerAddress)
+mqttc.subscribe("/FSSN/#")
+mqttc.publish("/FSSN/USVC/EVENTS/STATUS","CONNECTED",1, True)
+time.sleep(1)
+print("Start mqtt receiving loop")
+mqttc.loop_forever()
