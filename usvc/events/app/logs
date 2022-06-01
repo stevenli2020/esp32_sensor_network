@@ -1,0 +1,72 @@
+<2022-04-21 10:36:14.829>
+[SENT] Count=2&SensorID=DF75-34865d460164&Timestamp=21-Apr-22 10:36:13AM
+[RECEIVED]: {"id": "799eb2c9-aa76-4c67-afe6-8aecfe1776a5", "request_id": "6260c31d-8a63-4e91-902b-c0b4fcf9beb0", "attempt": "6260c31d-8a63-4e91-902b-c0b4fcf9beb0", "status": "success"}
+<2022-04-21 10:36:16.160>
+[SENT] Value1=357&SensorID=A9D5-3083985382b4&Timestamp=21-Apr-22 10:36:14AM
+[RECEIVED]: {"id": "de6d3403-f784-4826-b955-51ae2d0fe0d3", "request_id": "6260c31f-f53a-4fd1-be5a-aabfac02e5e0", "attempt": "6260c31f-f53a-4fd1-be5a-aabfac02e5e0", "status": "success"}
+<2022-04-21 10:36:44.650>
+[SENT] Count=2&SensorID=DF75-34865d460164&Timestamp=21-Apr-22 10:36:43AM
+[RECEIVED]: {"id": "91479d61-5d93-4e3c-b7e3-8d4fb86d778a", "request_id": "6260c33b-ca20-4a5c-b08c-97a76d375120", "attempt": "6260c33b-ca20-4a5c-b08c-97a76d375120", "status": "success"}
+<2022-04-21 10:36:45.967>
+[SENT] Value1=357&SensorID=A9D5-3083985382b4&Timestamp=21-Apr-22 10:36:44AM
+[RECEIVED]: {"id": "de5acb40-5b0b-4db9-b52d-a335b914fd80", "request_id": "6260c33c-58cb-4835-bd42-4897db71be60", "attempt": "6260c33c-58cb-4835-bd42-4897db71be60", "status": "success"}
+<2022-04-21 10:42:36.193>
+[SENT] Count=2&SensorID=DF75-34865d460164&Timestamp=21-Apr-22 10:42:34AM
+[RECEIVED]: {"id": "9ff9ded7-173d-4a75-9119-660daadcbad9", "request_id": "6260c49b-cbc4-40b8-850b-d2368d78d770", "attempt": "6260c49b-cbc4-40b8-850b-d2368d78d770", "status": "success"}
+<2022-04-21 10:42:37.506>
+[SENT] Value1=352&SensorID=A9D5-3083985382b4&Timestamp=21-Apr-22 10:42:36AM
+[RECEIVED]: {"id": "b680ec32-ee08-4e3c-bf1b-4c29c7de68e4", "request_id": "6260c49c-5b2c-4148-8b9d-0ec7a44ec8d0", "attempt": "6260c49c-5b2c-4148-8b9d-0ec7a44ec8d0", "status": "success"}
+<2022-05-08 20:50:19.265>
+[SENT] Count=0&SensorID=DF75-34865d460164&Timestamp=08-May-22 08:50:17PM
+[RECEIVED]: {"id": "3a45c7d2-607b-4013-8fd2-7b4a22812fef", "request_id": "6277bc8a-f34e-4279-94e9-6c02e49addd0", "attempt": "6277bc8a-f34e-4279-94e9-6c02e49addd0", "status": "success"}
+<2022-05-08 20:50:20.638>
+[SENT] Value1=590&SensorID=A9D5-3083985382b4&Timestamp=08-May-22 08:50:19PM
+[RECEIVED]: {"id": "baead0be-555f-4717-89cc-43831fdad600", "request_id": "6277bc8b-ffbe-4217-9535-bc9540be05d0", "attempt": "6277bc8b-ffbe-4217-9535-bc9540be05d0", "status": "success"}
+<2022-05-10 16:35:56.168>
+[SENT] Count=0&SensorID=DF75-34865d460164&Timestamp=10-May-22 04:35:54PM
+[RECEIVED]: {"id": "47d33805-31ad-4d41-a770-ee757f8bcd86", "request_id": "627a23eb-3a9a-42c2-9127-197352314280", "attempt": "627a23eb-3a9a-42c2-9127-197352314280", "status": "success"}
+<2022-05-10 16:35:57.536>
+[SENT] Value1=629&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 04:35:56PM
+[RECEIVED]: {"id": "b2786ea5-9313-4161-b88e-18062401c4f9", "request_id": "627a23ec-6322-487b-ab02-bb35eb4d72a0", "attempt": "627a23ec-6322-487b-ab02-bb35eb4d72a0", "status": "success"}
+<2022-05-10 17:06:00.599>
+[SENT] Count=0&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:05:59PM
+[RECEIVED]: {"id": "f68580e3-8037-4eb3-978f-3a83840e6000", "request_id": "627a2af7-5d18-4ffd-9284-75c793028ee0", "attempt": "627a2af7-5d18-4ffd-9284-75c793028ee0", "status": "success"}
+<2022-05-10 17:06:01.975>
+[SENT] Value1=627&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:06:00PM
+[RECEIVED]: {"id": "4efa0c56-342a-4bc9-9cec-d3be77c26b50", "request_id": "627a2af8-da41-4ea5-b99e-ef89fb95c2f0", "attempt": "627a2af8-da41-4ea5-b99e-ef89fb95c2f0", "status": "success"}
+<2022-05-10 17:18:42.279>
+[SENT] Count=26018&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:18:40PM
+[RECEIVED]: {"id": "87aab5fd-a26e-4a77-925f-7cd23ba46c43", "request_id": "627a2df1-9be4-45c6-800d-d59e3ac7b810", "attempt": "627a2df1-9be4-45c6-800d-d59e3ac7b810", "status": "success"}
+<2022-05-10 17:18:43.654>
+[SENT] Value1=624&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:18:42PM
+[RECEIVED]: {"id": "4be50a01-17d3-4638-87cb-e7b0fc674745", "request_id": "627a2df2-248e-4378-b508-aa1e2d7917e0", "attempt": "627a2df2-248e-4378-b508-aa1e2d7917e0", "status": "success"}
+<2022-05-10 17:20:30.513>
+[SENT] Count=26230&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:20:29PM
+[RECEIVED]: {"id": "0bc91252-f98e-4d1e-9ae3-8ded27e71ccd", "request_id": "627a2e5d-5690-492d-802b-2cf0d427e5f0", "attempt": "627a2e5d-5690-492d-802b-2cf0d427e5f0", "status": "success"}
+<2022-05-10 17:20:31.888>
+[SENT] Value1=624&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:20:30PM
+[RECEIVED]: {"id": "acbcb394-0766-4c69-89d3-0673a5515643", "request_id": "627a2e5e-464a-4759-badd-55b9bcfa0890", "attempt": "627a2e5e-464a-4759-badd-55b9bcfa0890", "status": "success"}
+<2022-05-10 17:36:05.041>
+[SENT] Count=0&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:36:03PM
+[RECEIVED]: {"id": "64521e2b-9fd9-47a7-87ab-7854c538b6a7", "request_id": "627a3203-4f6b-4bf8-b31e-3177043e7f70", "attempt": "627a3203-4f6b-4bf8-b31e-3177043e7f70", "status": "success"}
+<2022-05-10 17:36:06.460>
+[SENT] Value1=620&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:36:05PM
+[RECEIVED]: {"id": "22e86d20-8d14-4a0c-8865-0d997feebf8c", "request_id": "627a3205-3797-40d9-a5fd-3dce28c4c690", "attempt": "627a3205-3797-40d9-a5fd-3dce28c4c690", "status": "success"}
+<2022-05-10 17:50:34.932>
+[SENT] Count=464&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:50:33PM
+[RECEIVED]: {"id": "061eef65-6a1a-42a1-9133-64b14a5a8868", "request_id": "627a3569-1a26-41cb-ad54-a8cbd64cd220", "attempt": "627a3569-1a26-41cb-ad54-a8cbd64cd220", "status": "success"}
+<2022-05-10 17:50:36.318>
+[SENT] Value1=616&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:50:34PM
+[RECEIVED]: {"id": "e335919b-02e8-4954-beb1-c17b143e5ab8", "request_id": "627a356b-f24f-47ba-b2bb-70b8a57bc2d0", "attempt": "627a356b-f24f-47ba-b2bb-70b8a57bc2d0", "status": "success"}
+<2022-05-10 17:57:49.803>
+[SENT] Count=29&SensorID=DF75-34865d460164&Timestamp=10-May-22 05:57:48PM
+[RECEIVED]: {"id": "d6dbc0eb-8d2d-4909-9af5-c999605c1495", "request_id": "627a371c-9786-4d51-b819-34f55b6b0d20", "attempt": "627a371c-9786-4d51-b819-34f55b6b0d20", "status": "success"}
+<2022-05-10 17:57:51.177>
+[SENT] Value1=613&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 05:57:49PM
+[RECEIVED]: {"id": "6712bf72-77cc-4fef-847f-f5ccdf87ef49", "request_id": "627a371e-1cde-4666-80b6-02fbab232b20", "attempt": "627a371e-1cde-4666-80b6-02fbab232b20", "status": "success"}
+<2022-05-10 18:03:35.777>
+[SENT] Count=1&SensorID=DF75-34865d460164&Timestamp=10-May-22 06:03:34PM
+[RECEIVED]: {"id": "84c9b9fd-d252-4ae1-b334-d12ba385b6d2", "request_id": "627a3876-a68b-48b1-a08e-65602317e0a0", "attempt": "627a3876-a68b-48b1-a08e-65602317e0a0", "status": "success"}
+<2022-05-10 18:03:37.162>
+[SENT] Value1=613&SensorID=A9D5-3083985382b4&Timestamp=10-May-22 06:03:35PM
+[RECEIVED]: {"id": "ce94bb32-15cd-41ad-91ba-145115f60c4a", "request_id": "627a3878-9b76-4bf1-977c-ea5b1d2ab730", "attempt": "627a3878-9b76-4bf1-977c-ea5b1d2ab730", "status": "success"}

@@ -14,7 +14,9 @@ services:
       options:
         max-size: 10m
     environment:
-      MYSQL_ROOT_PASSWORD: 000228        
+      MYSQL_ROOT_PASSWORD: 000228   
+    ports:
+      - 2203:3306      
     labels:
       - "traefik.enable=false"
       - "traefik.docker.network=net01"
