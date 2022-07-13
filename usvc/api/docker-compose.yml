@@ -1,0 +1,27 @@
+version: "3"
+services:
+  api:
+    image: php:7.2-apache
+    container_name: api
+    restart: unless-stopped
+    networks:
+      - net01
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m      
+    environment:
+      DATABASE: 'database'
+      MQTT_HOST: 'vernemq'    
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=net01" 
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - 80:80      
+
+networks:
+  net01:
+    external: true
+    name: net01

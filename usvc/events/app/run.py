@@ -44,6 +44,13 @@ def on_message(mosq, obj, msg):
         EVENT_ID=int(MSG[1], 16)
         NODE_TYPE=MSG[0]
         NODE_BATT=int(MSG[2], 16)
+        if NODE_BATT>=4200:
+            NODE_BATT_PCT=100
+        elif NODE_BATT<3200:
+            NODE_BATT_PCT=0
+        else:
+            NODE_BATT_PCT = (NODE_BATT-3200)/10
+        
         NODE_DATA=int(MSG[3], 16)
         if NODE_TYPE=="03":
             if NODE_DATA==0:
@@ -54,11 +61,11 @@ def on_message(mosq, obj, msg):
             EVENT_ID_LAST = R['EVENT_ID']
             if (EVENT_ID-EVENT_ID_LAST) > NODE_DATA:
                 NODE_DATA = EVENT_ID - EVENT_ID_LAST
-        print(str(EVENT_ID)+" - "+str(NODE_TYPE)+","+str(NODE_BATT)+","+str(NODE_DATA))            
-        sql = "INSERT INTO `EVENTS` (`COORDINATOR`, `CLUSTER_ID`, `NODE_ID`, `TYPE`, `DATA_TYPE`, `EVENT_ID`, `BAT_LVL`, `SENSOR_DATA`) VALUES ('"+COORDINATOR_ID+"','"+CLUSTER_ID+"','"+NODE_ID+"','E','"+NODE_TYPE+"',"+str(EVENT_ID)+","+str(NODE_BATT)+","+str(NODE_DATA)+")"
+        print(str(EVENT_ID)+" - "+str(NODE_TYPE)+","+str(NODE_BATT)+","+str(NODE_BATT_PCT)+","+str(NODE_DATA))            
+        sql = "INSERT INTO `EVENTS` (`COORDINATOR`, `CLUSTER_ID`, `NODE_ID`, `TYPE`, `DATA_TYPE`, `EVENT_ID`, `BAT_LVL`, `BATT_PCT`,`SENSOR_DATA`) VALUES ('"+COORDINATOR_ID+"','"+CLUSTER_ID+"','"+NODE_ID+"','E','"+NODE_TYPE+"',"+str(EVENT_ID)+","+str(NODE_BATT)+","+str(NODE_BATT_PCT)+","+str(NODE_DATA)+")"
         cursor.execute(sql)
         # db.commit()
-        sql = "UPDATE `NODES` SET `EVENT_ID`="+str(EVENT_ID)+",`CLUSTER_ID`='"+CLUSTER_ID+"',`SENSOR_TYPE`='"+NODE_TYPE+"',`PARENT`='"+COORDINATOR_ID+"',`BATT_LVL`="+str(NODE_BATT)+",`SENSOR_DATA`="+str(NODE_DATA)+" WHERE `MAC`='"+NODE_ID+"'"
+        sql = "UPDATE `NODES` SET `EVENT_ID`="+str(EVENT_ID)+",`CLUSTER_ID`='"+CLUSTER_ID+"',`SENSOR_TYPE`='"+NODE_TYPE+"',`PARENT`='"+COORDINATOR_ID+"',`BATT_LVL`="+str(NODE_BATT)+",`BATT_PCT`="+str(NODE_BATT_PCT)+",`SENSOR_DATA`="+str(NODE_DATA)+" WHERE `MAC`='"+NODE_ID+"'"
         # print(sql)
         cursor.execute(sql)
         db.commit()
