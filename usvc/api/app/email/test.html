@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EMAIL TEST</title>
+</head>
+<body>
+    <form action="index.php" method="post" enctype="multipart/form-data">
+        <h2>Select HTML File</h2>
+        <label for="fileSelect">Filename:</label>
+        <input type="file" name="file" id="fileSelect"><br><br>
+		<label for="rec">Receipant:</label>
+		<input type="text" name="target" value="devteamsbox@gmail.com" id="rec"><br><br>
+		<label for="sub">Subject:</label>
+		<input type="text" name="subject" value="Test" id="sub"><br><br>	
+		<input type="hidden" name="api_key" value="ae5b60173687599eda77c84a639b6c2f61812e1a">		
+        <input type="submit" name="submit" value="Upload">
+        <p><strong>Note:</strong> File upload allowed to a max size of 20 MB.</p>
+    </form>
+</body>
+</html>
