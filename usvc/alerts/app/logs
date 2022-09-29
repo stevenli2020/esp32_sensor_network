@@ -1,0 +1,3 @@
+<2022-09-29 15:13:04.147>
+[SENT] SensorID=94b5552f98e8&Phone1=96900392&Phone2=12312312&Message='Motion%20Sensor%2001%20at%20Trade%20hub%2021,%20Level%201%20Toilet%20traffic%20counter%20exceeds%20100.'
+[RECEIVED] {"id": "ce2c7a37-0520-4a89-b88a-6eb3c786e8c1", "request_id": "6335457f-eae4-4976-8cdd-491b0fc0d480", "attempt": "6335457f-eae4-4976-8cdd-491b0fc0d480", "status": "success"}
