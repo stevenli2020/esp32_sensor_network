@@ -38,3 +38,21 @@
     </tbody>
     </table>
 </div>
+
+<div class="modal" id="fac-alert-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" id="fac-alert-X-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="fac-alert-modal-body">
+        <!-- <p>Modal body text goes here.</p> -->
+      </div>
+      <div class="modal-footer" id="fac-alert-modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="fac-alert-close-btn">Close</button>
+        <!-- <button type="button" onclick="facAck()" class="btn btn-primary">Acknowledge</button> -->
+      </div>
+    </div>
+  </div>
+</div>

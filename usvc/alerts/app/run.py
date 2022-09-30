@@ -89,13 +89,13 @@ def AlertAirQuality():
                     NOTIFICATION_EXPIRY = 0
                 if  T0 > NOTIFICATION_EXPIRY:
                     # print(FAC,LOC,NODE,THR,S_NAME,S_PHONE,S_EMAIL,C_NAME,C_EMAIL,C_PHONE)
-                    MSG = NODE+" at "+FAC+", "+LOC+" air-quality reading exceeds "+str(THR)
-                    DATA = "SensorID="+ID+"&Phone1="+S_PHONE+"&Phone2="+C_PHONE+"&Message='"+MSG.replace(" ","%20")+".'"
+                    MSG = NODE+" at "+FAC+", "+LOC+" air-quality reading exceeds "+str(THR)+"."
+                    DATA = "SensorID="+ID+"&Phone1="+S_PHONE+"&Phone2="+C_PHONE+"&Message='"+MSG.replace(" ","%20")+"'"
                     x = requests.post(WEBHOOK, data = DATA, headers=HEADER)
                     print("[AlertAirQuality] SENT> "+DATA+"\nRECEIVED> "+x.text)
                     mqttc.publish("/FSSN/USVC/ALERT/EVENT",DATA,1, False)
                     with open("logs", "a+") as myfile:
-                        myfile.write("<"+str(datetime.now(tzinfo))[:23]+">\n[SENT] "+DATA+"\n[RECEIVED] "+x.text+"\n")
+                        myfile.write("<"+str(datetime.now(tzinfo))[:23]+">\n"+MSG+"\n")
                     cursor.execute("INSERT INTO `NOTIFICATIONS`(`MAC`,`TIME`,`MESSAGE`,`NOTIFIED_USERS`,`EXPIRY`) VALUES ('"+ID+"',NOW(),'"+MSG+"','[\""+S_NAME+"\",\""+C_NAME+"\"]', FROM_UNIXTIME("+str(T0+Expiry)+"));")
                     # print("INSERT INTO `NOTIFICATIONS`(`MAC`,`TIME`,`MESSAGE`,`NOTIFIED_USERS`,`EXPIRY`) VALUES ('"+ID+"',NOW(),'"+MSG+"','[\""+S_NAME+"\",\""+C_NAME+"\"]', FROM_UNIXTIME("+str(T0+Expiry)+"));")
                 else:
@@ -147,13 +147,13 @@ def AlertMotionCount():
                 S_EMAIL = r_1['EMAIL']
                 S_PHONE = r_1['PHONE']
                 # print(FAC,LOC,NODE,THR,S_NAME,S_PHONE,S_EMAIL,C_NAME,C_EMAIL,C_PHONE)
-                MSG = NODE+" at "+FAC+", "+LOC+" traffic counter exceeds "+str(THR)
-                DATA = "SensorID="+ID+"&Phone1="+S_PHONE+"&Phone2="+C_PHONE+"&Message='"+MSG.replace(" ","%20")+".'"
+                MSG = NODE+" at "+FAC+", "+LOC+" traffic counter exceeds "+str(THR)+"."
+                DATA = "SensorID="+ID+"&Phone1="+S_PHONE+"&Phone2="+C_PHONE+"&Message='"+MSG.replace(" ","%20")+"'"
                 x = requests.post(WEBHOOK, data = DATA, headers=HEADER)
                 print("[AlertMotionCount] SENT> "+DATA+"\nRECEIVED> "+x.text)
                 mqttc.publish("/FSSN/USVC/ALERT/EVENT",DATA,1, False)
                 with open("logs", "a+") as myfile:
-                    myfile.write("<"+str(datetime.now(tzinfo))[:23]+">\n[SENT] "+DATA+"\n[RECEIVED] "+x.text+"\n")              
+                    myfile.write("<"+str(datetime.now(tzinfo))[:23]+">\n"+MSG+"\n")            
             if ROW_COUNT != 0:
                 print("[AlertMotionCount] Reset detection count")
                 cursor.execute("UPDATE `NODES` SET `CHECKVALUE`=0 WHERE `CHECKVALUE`>`THRESHOLD` AND `SENSOR_TYPE` LIKE '03';")

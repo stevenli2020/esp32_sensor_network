@@ -1,3 +1,54 @@
 <2022-09-29 15:13:04.147>
 [SENT] SensorID=94b5552f98e8&Phone1=96900392&Phone2=12312312&Message='Motion%20Sensor%2001%20at%20Trade%20hub%2021,%20Level%201%20Toilet%20traffic%20counter%20exceeds%20100.'
 [RECEIVED] {"id": "ce2c7a37-0520-4a89-b88a-6eb3c786e8c1", "request_id": "6335457f-eae4-4976-8cdd-491b0fc0d480", "attempt": "6335457f-eae4-4976-8cdd-491b0fc0d480", "status": "success"}
+<2022-09-29 15:15:55.534>
+[SENT] SensorID=3083985382b4&Phone1=88967487&Phone2=12312312&Message='Melvins%20Coordinator%20at%20Raffles%20City,%20Level%202%20Female%20Toilet%20air-quality%20reading%20exceeds%201600.'
+[RECEIVED] {"id": "93c74d84-f7b9-4f55-906f-d944ce5fdf25", "request_id": "6335462b-f42d-49ea-98b1-905a53f25b50", "attempt": "6335462b-f42d-49ea-98b1-905a53f25b50", "status": "success"}
+<2022-09-29 15:30:15.088>
+Motion Sensor 01 at Trade hub 21, Level 1 Toilet traffic counter exceeds 100
+<2022-09-29 16:16:29.539>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 17:16:30.535>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 18:16:31.780>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 19:16:32.897>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 20:16:33.991>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 21:16:35.490>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 22:16:36.413>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-29 23:16:37.709>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 00:16:38.784>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 01:16:39.802>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 02:16:41.533>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 03:16:42.592>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 04:16:43.720>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 05:16:44.615>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 06:16:46.025>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 07:16:47.588>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 08:16:48.015>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 09:16:49.047>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 10:16:50.312>
+Melvins Coordinator at Raffles City, Level 2 Female Toilet air-quality reading exceeds 1600.
+<2022-09-30 10:27:58.254>
+Motion Sensor 01 at Trade hub 21, Level 1 Toilet traffic counter exceeds 100.
+<2022-09-30 10:38:59.662>
+Motion Sensor 01 at Trade hub 21, Level 1 Toilet traffic counter exceeds 100.
+<2022-09-30 10:53:01.375>
+Motion Sensor 01 at Trade hub 21, Level 1 Toilet traffic counter exceeds 100.
+<2022-09-30 13:53:43.604>
+Motion Sensor 01 at Trade hub 21, Level 1 Toilet traffic counter exceeds 100.

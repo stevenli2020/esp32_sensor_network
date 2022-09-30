@@ -3,15 +3,17 @@ const offcanvasLogin = document.getElementById("offcanvas-login");
 const offcanvasLogout = document.getElementById("offcanvas-logout");
 const offcanvasHeader = document.getElementById("offcanvas-header");
 // tabs
-const homeTabFac = document.getElementById('home-tab')
-const profileTabFac = document.getElementById('profile-tab')
-const contactTabFac = document.getElementById('contact-tab')
+const homeTabFac = document.getElementById("home-tab");
+const profileTabFac = document.getElementById("profile-tab");
+const contactTabFac = document.getElementById("contact-tab");
 // add location form
 const addLocName = document.getElementById("add-loc-name");
 const addLocFacName = document.getElementById("add-loc-fac-name");
 const addLocFacNameSugg = document.getElementById("add-loc-fac-suggest");
 const addLocSupervisor = document.getElementById("add-loc-supervisor");
-const addLocSupervisorSugg = document.getElementById("add-loc-supervisor-suggest");
+const addLocSupervisorSugg = document.getElementById(
+  "add-loc-supervisor-suggest"
+);
 const addLocCleaner = document.getElementById("add-loc-cleaner");
 const addLocCleanerSugg = document.getElementById("add-loc-cleaner-suggest");
 const addLocImgLink = document.getElementById("add-loc-image-link");
@@ -21,41 +23,57 @@ const addLocSupervisorError = document.getElementById("addLocSupervisorError");
 const addLocCleanerError = document.getElementById("addLocCleanerError");
 const addLocImgLinkError = document.getElementById("addLocImgLinkError");
 // update location form
-const updateLocForm = document.getElementById('updateLocationForm');
-const updateLocXBtn = document.getElementById('update-loc-X-btn');
-const updateLocName = document.getElementById('update-loc-name');
-const updateLocNameError = document.getElementById('updateLocNameError');
-const updateLocFacName = document.getElementById('update-loc-fac-name');
-const updateLocFacNameSugg = document.getElementById('update-loc-fac-name-suggest');
-const updateLocFacNameError = document.getElementById('updateLocFacNameError');
-const updateLocSupervisor = document.getElementById('update-loc-supervisor');
-const updateLocSupervisorSugg = document.getElementById('update-loc-supervisor-suggest');
-const updateLocSupervisorError = document.getElementById('updateLocSupervisorError');
-const updateLocCleaner = document.getElementById('update-loc-cleaner');
-const updateLocCleanerSugg = document.getElementById('update-loc-cleaner-suggest');
-const updateLocClanerError = document.getElementById('updateLocClanerError');
-const updateLocImgLink = document.getElementById('update-loc-image-link');
-const updateLocImgLinkError = document.getElementById('updateLocImgLinkError');
-const updateLocCloseBtn = document.getElementById('update-loc-close-btn');
-const updateLocSubmitBtn = document.getElementById('update-loc-submit-btn');
+const updateLocForm = document.getElementById("updateLocationForm");
+const updateLocXBtn = document.getElementById("update-loc-X-btn");
+const updateLocName = document.getElementById("update-loc-name");
+const updateLocNameError = document.getElementById("updateLocNameError");
+const updateLocFacName = document.getElementById("update-loc-fac-name");
+const updateLocFacNameSugg = document.getElementById(
+  "update-loc-fac-name-suggest"
+);
+const updateLocFacNameError = document.getElementById("updateLocFacNameError");
+const updateLocSupervisor = document.getElementById("update-loc-supervisor");
+const updateLocSupervisorSugg = document.getElementById(
+  "update-loc-supervisor-suggest"
+);
+const updateLocSupervisorError = document.getElementById(
+  "updateLocSupervisorError"
+);
+const updateLocCleaner = document.getElementById("update-loc-cleaner");
+const updateLocCleanerSugg = document.getElementById(
+  "update-loc-cleaner-suggest"
+);
+const updateLocClanerError = document.getElementById("updateLocClanerError");
+const updateLocImgLink = document.getElementById("update-loc-image-link");
+const updateLocImgLinkError = document.getElementById("updateLocImgLinkError");
+const updateLocCloseBtn = document.getElementById("update-loc-close-btn");
+const updateLocSubmitBtn = document.getElementById("update-loc-submit-btn");
 // delete location form
-const delLocForm = document.getElementById('deleteLocationForm');
-const delLocXBtn = document.getElementById('delete-loc-x-btn');
-const deleteLocationFormBody = document.getElementById('deleteLocationFormBody');
-const delLocClostBtn = document.getElementById('delete-loc-close-btn');
-const delLocSubmitBtn = document.getElementById('delete-loc-submit-btn');
-
+const delLocForm = document.getElementById("deleteLocationForm");
+const delLocXBtn = document.getElementById("delete-loc-x-btn");
+const deleteLocationFormBody = document.getElementById(
+  "deleteLocationFormBody"
+);
+const delLocClostBtn = document.getElementById("delete-loc-close-btn");
+const delLocSubmitBtn = document.getElementById("delete-loc-submit-btn");
+// alert modal
+const facAlertModal = document.getElementById("fac-alert-modal");
+const facAlertXBtn = document.getElementById("fac-alert-X-btn");
+const facAlertCloseBtn = document.getElementById("fac-alert-close-btn");
+const facAlertModalBody = document.getElementById("fac-alert-modal-body");
+const facAlertModalFooter = document.getElementById("fac-alert-modal-footer");
 // get current page
-const curPage = window.location.href.split("=")[1].replaceAll('%20', ' ');
-// console.log(curPage)
+const curPage = window.location.href.split("=")[1].replaceAll("%20", " ");
+// console.log(curPage);
 
-removeChildEl('locations-list')
+removeChildEl("locations-list");
 offcanvasChildElRemove("offcanvasEl");
 offcanvasHomeliCreate("offcanvasEl", "Home");
 offcanvasHomeliCreate("offcanvasEl", "Dash Board");
 TYPE = getCookie("TYPE");
+UNAME = getCookie("USERNAME");
 if (checkLogin()) {
-    //   console.log(TYPE, typeof(TYPE), TYPE != 0)
+  //   console.log(TYPE, typeof(TYPE), TYPE != 0)
   if (TYPE != 0) {
     offcanvasliCreate(
       "offcanvasEl",
@@ -76,7 +94,7 @@ if (checkLogin()) {
     });
   }
 
-  UNAME = getCookie("USERNAME");
+  
   offcanvasLogin.innerHTML = `<a class="nav-link" aria-current="page">${UNAME} <i class="fa-solid fa-user"></i></a>`;
   offcanvasLogin.setAttribute("onclick", `userDetail('${UNAME}')`);
   offcanvasLogin.setAttribute("type", "button");
@@ -94,7 +112,7 @@ if (checkLogin()) {
 let reqD = {
   FACILITY_NAME: curPage,
   TIME: "DAY",
-  SENSOR_TYPE: air
+  SENSOR_TYPE: air,
 };
 Object.assign(reqD, RequestData());
 fetch(`${domain}API/?act=getFacilityEventData`, {
@@ -102,7 +120,7 @@ fetch(`${domain}API/?act=getFacilityEventData`, {
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify(reqD)
+  body: JSON.stringify(reqD),
 })
   .then((response) => response.json())
   .then((data) => {
@@ -123,9 +141,9 @@ fetch(`${domain}API/?act=getFacilityEventData`, {
   .catch((error) => console.log(error));
 
 let rData = {
-  FACILITY_NAME: curPage
-}
-Object.assign(rData, RequestData())
+  FACILITY_NAME: curPage,
+};
+Object.assign(rData, RequestData());
 fetch(`${domain}API/?act=getLocations`, {
   method: "POST",
   headers: {
@@ -133,21 +151,27 @@ fetch(`${domain}API/?act=getLocations`, {
   },
   body: JSON.stringify(rData),
 })
-.then((response) => response.json())
-.then((data) => {
-  // console.log(data)
-  if(data.CODE == 0){
-    removeChildEl('locations-list')
-    data.DATA.forEach(fac => {
-      createFacilitiesList('locations-list', fac.LOCATION_UID, fac.LOCATION_UID, fac.LOCATION_IMG_LINK, fac.LOCATION_NAME)
-    })
-  }
-  if(data.CODE == -1){
-    // alert(data.MESSAGE)
-    // window.location.href = dashBoardPage
-  }
-})
-.catch(error => console.log(error))
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log(data)
+    if (data.CODE == 0) {
+      removeChildEl("locations-list");
+      data.DATA.forEach((fac) => {
+        createFacilitiesList(
+          "locations-list",
+          fac.LOCATION_UID,
+          fac.LOCATION_UID,
+          fac.LOCATION_IMG_LINK,
+          fac.LOCATION_NAME
+        );
+      });
+    }
+    if (data.CODE == -1) {
+      // alert(data.MESSAGE)
+      // window.location.href = dashBoardPage
+    }
+  })
+  .catch((error) => console.log(error));
 
 fetch(`${domain}API/?act=getFacilityAlertsData`, {
   method: "POST",
@@ -156,107 +180,175 @@ fetch(`${domain}API/?act=getFacilityAlertsData`, {
   },
   body: JSON.stringify(rData),
 })
-.then((response) => response.json())
-.then((data) => {
-  console.log(data)
-  if(data.CODE == 0){
-    data.DATA.forEach(alert => {
-      msg = alert.MESSAGE.replaceAll('%20','').split('at')
-      // console.log(msg)
-      var loc, category, status
-      if(msg.length > 2){
-        msg = msg[msg.length - 1]
-      } else {
-        msg = msg[1]
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log(data);
+    if (data.CODE == 0) {
+      data.DATA.forEach((alert) => {
+        msg = alert.MESSAGE.replaceAll("%20", "").split("at");
+        // console.log(msg)
+        var loc, category, status, action;
+        if (msg.length > 2) {
+          msg = msg[msg.length - 1];
+        } else {
+          msg = msg[1];
+        }
+        if (msg.includes("traffic")) {
+          loc = msg.split("traffic")[0];
+          category = "Traffic Counter";
+        } else {
+          loc = msg.split("air-quality")[0];
+          category = "Air Quality";
+        }
+        if (alert.STATUS == 0) {
+          status =
+            '<span style="color: #fcba03;"><i class="fa-solid fa-arrow-trend-up"></i></span> In Progress';
+          action =
+            '<span style="color: #fcba03;"><i class="fa-solid fa-square-pen"></i></span> Update';
+        } else if (alert.STATUS == 0) {
+          action =
+            '<span style="color: #fcba03;"><i class="fa-solid fa-circle-check"></i></span> Updated';
+          status =
+            '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Acknowledge';
+        }
+        newRow = $(
+          "<tr onclick=clickedRow("+alert.ID+")><td>" +
+            alert.ID +
+            "</td><td>" +
+            alert.TIME +
+            "</td><td>" +
+            loc +
+            "</td><td>" +
+            category +
+            "</td><td>" +
+            status +
+            "</td><td>" +
+            action +
+            "</td></tr>"
+        );
+        $("#fac-fault-table tbody").append(newRow);
+      });
+    }
+    if (data.CODE == -1) {
+    }
+  })
+  .catch((error) => console.log(error));
+
+function clickedRow(id){
+  // console.log(id)  
+  rData = {
+    ID: id,
+  };
+  Object.assign(rData, RequestData());
+  fetch(`${domain}API/?act=getAlert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      if (data.CODE == 0) {
+        facAlertModal.classList.add('fade')
+        facAlertModal.classList.add('show')
+        facAlertModal.style = "display: block;"
+        data.DATA.forEach(al => {
+          if(UNAME == al.LOGIN_NAME){
+            var btn = document.createElement('button')
+            btn.setAttribute('type', 'button')
+            btn.setAttribute('class', 'btn btn-primary')
+            btn.setAttribute('onclick', `facAck(${al.ID})`)
+            btn.innerText = "Acknowledge"
+
+          }
+        })
       }
-      if(msg.includes('traffic')){
-        loc = msg.split('traffic')[0]
-        category = "Traffic Counter"
-      } else {        
-        loc = msg.split('air-quality')[0]
-        category = "Air Quality"
+      if (data.CODE == -1) {
+        alert(data.MESSAGE)
+        // window.location.href = dashBoardPage
       }
-      if(alert.STATUS == 0){
-        status = '<span style="color: #fcba03;"><i class="fa-solid fa-arrow-trend-up"></i></span> Ongoing'
-      } else if(alert.STATUS == 0){
-        status = '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Acknowledge'
-      }
-      newRow = $("<tr><td>" + alert.ID + "</td><td>"+ alert.TIME +"</td><td>"+loc+"</td><td>"+category+"</td><td>"+status+"</td><td></td></tr>");
-      $("#fac-fault-table tbody").append(newRow);
     })
-    
-  }
-  if(data.CODE == -1){
+    .catch((error) => console.log(error));
+}
 
-  }
+function facAck(){
+
+}
+
+facAlertCloseBtn.addEventListener('click', e => {
+  facAlertModal.classList.remove('fade')
+  facAlertModal.classList.remove('show')
+  facAlertModal.style = "display: none;"
 })
-.catch(error => console.log(error))
 
+facAlertXBtn.addEventListener('click', e => {
+  facAlertModal.classList.remove('fade')
+  facAlertModal.classList.remove('show')
+  facAlertModal.style = "display: none;"
+})
 
 window.addEventListener("click", (e) => {
-  // console.log(e.path[0].id, e.path[2].id, e)
+  // console.log(e);
   // if(TYPE != 0){
-    if(e.path[0].id == 'fac-image' || e.path[0].id == 'fac-list'){
-      window.location.href = `${nodePage}?name=${e.target.innerText}&${e.path[2].id}`
-    }
-    if(e.path[2].id == 'fac-list'){
-      window.location.href = `${nodePage}?name=${e.target.innerText}&${e.path[4].id}`
-    }
+  if (e.path[0].id == "fac-image" || e.path[0].id == "fac-list") {
+    window.location.href = `${nodePage}?name=${e.target.innerText}&${e.path[2].id}`;
+  }
+  if (e.path[2].id == "fac-list") {
+    window.location.href = `${nodePage}?name=${e.target.innerText}&${e.path[4].id}`;
+  }
   // } else {
 
   // }
-  
 });
 
-function chartTimeSelect(timeSelect){
-  type = air
-  legendName = ''
-  lineS = 10
-  dottedBar.showLoading()
-  if(homeTabFac.classList.contains("active")){
-    type = air
-    legendName = "Average Air Quality in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+function chartTimeSelect(timeSelect) {
+  type = air;
+  legendName = "";
+  lineS = 10;
+  dottedBar.showLoading();
+  if (homeTabFac.classList.contains("active")) {
+    type = air;
+    legendName = "Average Air Quality in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
-  } else if(profileTabFac.classList.contains('active')){
-    type = motion
-    legendName = "Total Detection in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+  } else if (profileTabFac.classList.contains("active")) {
+    type = motion;
+    legendName = "Total Detection in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
-  } else if(contactTabFac.classList.contains('active')){
-    type = distance
-    legendName = "Average Fill Level in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+  } else if (contactTabFac.classList.contains("active")) {
+    type = distance;
+    legendName = "Average Fill Level in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
   }
   RData = {
     FACILITY_NAME: curPage,
     TIME: timeSelect,
-    SENSOR_TYPE: type
+    SENSOR_TYPE: type,
   };
   Object.assign(RData, RequestData());
   fetch(`${domain}API/?act=getFacilityEventData`, {
@@ -271,62 +363,64 @@ function chartTimeSelect(timeSelect){
       // console.log(data);
       let xLabel = [];
       let lineD = [];
-      if(type == air || type == distance){
+      if (type == air || type == distance) {
         data.DATA?.forEach((air) => {
-          if(timeSelect == "HOUR" || timeSelect == "DAY") xLabel.push(air["TIME"].slice(11, 16));
-          else if(timeSelect == "WEEK") xLabel.push(air["TIME"].slice(5, 16))
-          else xLabel.push(air["TIME"].slice(5, 10))
+          if (timeSelect == "HOUR" || timeSelect == "DAY")
+            xLabel.push(air["TIME"].slice(11, 16));
+          else if (timeSelect == "WEEK") xLabel.push(air["TIME"].slice(5, 16));
+          else xLabel.push(air["TIME"].slice(5, 10));
           lineD.push(Math.round(air["AVG(EVENTS.SENSOR_DATA)"]));
         });
       } else {
         data.DATA?.forEach((motion) => {
-          if(timeSelect == "HOUR" || timeSelect == "DAY") xLabel.push(motion["TIME"].slice(11, 16));
-          else if(timeSelect == "WEEK") xLabel.push(motion["TIME"].slice(5, 16))
-          else xLabel.push(motion["TIME"].slice(5, 10))
+          if (timeSelect == "HOUR" || timeSelect == "DAY")
+            xLabel.push(motion["TIME"].slice(11, 16));
+          else if (timeSelect == "WEEK")
+            xLabel.push(motion["TIME"].slice(5, 16));
+          else xLabel.push(motion["TIME"].slice(5, 10));
           lineD.push(motion["SUM(EVENTS.SENSOR_DATA)"]);
         });
-      }     
-      dottedBar.hideLoading()
-      updateDottedBar(xLabel, legendName, lineD, lineS, legendName)
-      
+      }
+      dottedBar.hideLoading();
+      updateDottedBar(xLabel, legendName, lineD, lineS, legendName);
     })
     .catch((error) => console.log(error));
 }
 
-async function locUpdate(locName, locUID){
+async function locUpdate(locName, locUID) {
   // console.log(locName, locUID)
-  updateLocName.value = ''
-  updateLocFacName.value = ''
-  updateLocSupervisor.value = ''
-  updateLocCleaner.value = ''
-  updateLocImgLink.value = ''
-  updateLocFacName.setAttribute('uid', '');
-  updateLocSupervisor.setAttribute('uid', '');
-  updateLocCleaner.setAttribute('uid', '');
-  updateLocSubmitBtn.setAttribute('uid', '');
-  updateLocCloseBtn.addEventListener('click', e => {
-    updateLocForm.classList.remove('show');
-    updateLocForm.setAttribute('style', 'display: none;')
-    updateLocForm.removeAttribute('aria-modal')
-    updateLocForm.removeAttribute('role')
-    updateLocForm.setAttribute('aria-hidden', 'true')
-  })
-  updateLocXBtn.addEventListener('click', e => {
-    updateLocForm.classList.remove('show');
-    updateLocForm.setAttribute('style', 'display: none;')
-    updateLocForm.removeAttribute('aria-modal')
-    updateLocForm.removeAttribute('role')
-    updateLocForm.setAttribute('aria-hidden', 'true')
-  })
-  updateLocForm.setAttribute('class', 'modal fade show')
-  updateLocForm.setAttribute('style', 'display: block;')
-  updateLocForm.setAttribute('aria-modal', 'true');
-  updateLocForm.setAttribute('role', 'dialog');
-  updateLocForm.removeAttribute('aria-hidden');
+  updateLocName.value = "";
+  updateLocFacName.value = "";
+  updateLocSupervisor.value = "";
+  updateLocCleaner.value = "";
+  updateLocImgLink.value = "";
+  updateLocFacName.setAttribute("uid", "");
+  updateLocSupervisor.setAttribute("uid", "");
+  updateLocCleaner.setAttribute("uid", "");
+  updateLocSubmitBtn.setAttribute("uid", "");
+  updateLocCloseBtn.addEventListener("click", (e) => {
+    updateLocForm.classList.remove("show");
+    updateLocForm.setAttribute("style", "display: none;");
+    updateLocForm.removeAttribute("aria-modal");
+    updateLocForm.removeAttribute("role");
+    updateLocForm.setAttribute("aria-hidden", "true");
+  });
+  updateLocXBtn.addEventListener("click", (e) => {
+    updateLocForm.classList.remove("show");
+    updateLocForm.setAttribute("style", "display: none;");
+    updateLocForm.removeAttribute("aria-modal");
+    updateLocForm.removeAttribute("role");
+    updateLocForm.setAttribute("aria-hidden", "true");
+  });
+  updateLocForm.setAttribute("class", "modal fade show");
+  updateLocForm.setAttribute("style", "display: block;");
+  updateLocForm.setAttribute("aria-modal", "true");
+  updateLocForm.setAttribute("role", "dialog");
+  updateLocForm.removeAttribute("aria-hidden");
   RData = {
-    LOCATION_UID: locUID
-  }
-  Object.assign(RData, RequestData())
+    LOCATION_UID: locUID,
+  };
+  Object.assign(RData, RequestData());
   await fetch(`${domain}API/?act=getLocations`, {
     method: "POST",
     headers: {
@@ -334,75 +428,75 @@ async function locUpdate(locName, locUID){
     },
     body: JSON.stringify(RData),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    // console.log(data)
-    if(data.CODE == 0){
-      updateLocName.style.border = oriBorder;
-      updateLocNameError.innerHTML = '';
-      updateLocName.value = data.DATA[0].LOCATION_NAME;
-      updateLocFacName.value = data.DATA[0].FACILITY;
-      updateLocFacName.setAttribute('uid', data.DATA[0].FACILITY_UID);
-      updateLocSupervisor.value = data.DATA[0].SUPERVISOR;
-      updateLocSupervisor.setAttribute('uid', data.DATA[0].SUPERVISOR_UID);
-      updateLocCleaner.value = data.DATA[0].CLEANER;
-      updateLocCleaner.setAttribute('uid', data.DATA[0].CLEANER_UID);
-      updateLocImgLink.value = data.DATA[0].LOCATION_IMG_LINK;
-      updateLocSubmitBtn.setAttribute('uid', data.DATA[0].LOCATION_UID);
-      // updateLocName.setAttribute('oriName', fname);
-    } else {
-      updateLocName.style.border = redBorder;
-      updateLocNameError.innerHTML = 'Location Name Not Found';
-    }
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data)
+      if (data.CODE == 0) {
+        updateLocName.style.border = oriBorder;
+        updateLocNameError.innerHTML = "";
+        updateLocName.value = data.DATA[0].LOCATION_NAME;
+        updateLocFacName.value = data.DATA[0].FACILITY;
+        updateLocFacName.setAttribute("uid", data.DATA[0].FACILITY_UID);
+        updateLocSupervisor.value = data.DATA[0].SUPERVISOR;
+        updateLocSupervisor.setAttribute("uid", data.DATA[0].SUPERVISOR_UID);
+        updateLocCleaner.value = data.DATA[0].CLEANER;
+        updateLocCleaner.setAttribute("uid", data.DATA[0].CLEANER_UID);
+        updateLocImgLink.value = data.DATA[0].LOCATION_IMG_LINK;
+        updateLocSubmitBtn.setAttribute("uid", data.DATA[0].LOCATION_UID);
+        // updateLocName.setAttribute('oriName', fname);
+      } else {
+        updateLocName.style.border = redBorder;
+        updateLocNameError.innerHTML = "Location Name Not Found";
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
-async function locDelete(locName, locUID){
+async function locDelete(locName, locUID) {
   // console.log(locName, locUID)
-  delLocClostBtn.addEventListener('click', e => {
-    delLocForm.classList.remove('show');
-    delLocForm.setAttribute('style', 'display: none;')
-    delLocForm.removeAttribute('aria-modal')
-    delLocForm.removeAttribute('role')
-    delLocForm.setAttribute('aria-hidden', 'true')
-  })
-  delLocXBtn.addEventListener('click', e => {
-    delLocForm.classList.remove('show');
-    delLocForm.setAttribute('style', 'display: none;')
-    delLocForm.removeAttribute('aria-modal')
-    delLocForm.removeAttribute('role')
-    delLocForm.setAttribute('aria-hidden', 'true')
-  })
-  delLocForm.setAttribute('class', 'modal fade show')
-  delLocForm.setAttribute('style', 'display: block;')
-  delLocForm.setAttribute('aria-modal', 'true');
-  delLocForm.setAttribute('role', 'dialog');
-  delLocForm.removeAttribute('aria-hidden');
+  delLocClostBtn.addEventListener("click", (e) => {
+    delLocForm.classList.remove("show");
+    delLocForm.setAttribute("style", "display: none;");
+    delLocForm.removeAttribute("aria-modal");
+    delLocForm.removeAttribute("role");
+    delLocForm.setAttribute("aria-hidden", "true");
+  });
+  delLocXBtn.addEventListener("click", (e) => {
+    delLocForm.classList.remove("show");
+    delLocForm.setAttribute("style", "display: none;");
+    delLocForm.removeAttribute("aria-modal");
+    delLocForm.removeAttribute("role");
+    delLocForm.setAttribute("aria-hidden", "true");
+  });
+  delLocForm.setAttribute("class", "modal fade show");
+  delLocForm.setAttribute("style", "display: block;");
+  delLocForm.setAttribute("aria-modal", "true");
+  delLocForm.setAttribute("role", "dialog");
+  delLocForm.removeAttribute("aria-hidden");
   deleteLocationFormBody.innerHTML = `Are you sure, you want to delete <strong>${locName}</strong> Location?`;
-  delLocSubmitBtn.setAttribute('uid', locUID)
+  delLocSubmitBtn.setAttribute("uid", locUID);
 }
 
-async function updateLocation(){
-  updateLocName.style.border = oriBorder
-  updateLocFacName.style.border = oriBorder
-  updateLocSupervisor.style.border = oriBorder
-  updateLocCleaner.style.border = oriBorder
-  updateLocNameError.innerHTML = ''
-  updateLocFacNameError.innerHTML = ''
-  updateLocSupervisorError.innerHTML = ''
-  updateLocClanerError.innerHTML = ''
+async function updateLocation() {
+  updateLocName.style.border = oriBorder;
+  updateLocFacName.style.border = oriBorder;
+  updateLocSupervisor.style.border = oriBorder;
+  updateLocCleaner.style.border = oriBorder;
+  updateLocNameError.innerHTML = "";
+  updateLocFacNameError.innerHTML = "";
+  updateLocSupervisorError.innerHTML = "";
+  updateLocClanerError.innerHTML = "";
   let RData = {
-    LOCATION_NAME : updateLocName.value,
-    FACILITY_UID : updateLocFacName.getAttribute('uid'),
-    SUPERVISOR_UID : updateLocSupervisor.getAttribute('uid'),
-    CLEANER_UID : updateLocCleaner.getAttribute('uid'),
-    LOCATION_IMG_LINK : updateLocImgLink.value,
-    LOCATION_UID : updateLocSubmitBtn.getAttribute('uid')
-  }
-  Object.assign(RData, RequestData())
+    LOCATION_NAME: updateLocName.value,
+    FACILITY_UID: updateLocFacName.getAttribute("uid"),
+    SUPERVISOR_UID: updateLocSupervisor.getAttribute("uid"),
+    CLEANER_UID: updateLocCleaner.getAttribute("uid"),
+    LOCATION_IMG_LINK: updateLocImgLink.value,
+    LOCATION_UID: updateLocSubmitBtn.getAttribute("uid"),
+  };
+  Object.assign(RData, RequestData());
   await fetch(`${domain}API/?act=updateLocation`, {
     method: "POST",
     headers: {
@@ -410,40 +504,50 @@ async function updateLocation(){
     },
     body: JSON.stringify(RData),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    if(data.CODE == 0){
-      document.querySelector('#update-loc-close-btn').click();
-      location.reload();
-    }
-    if(data.CODE == -1){
-      if(data.MESSAGE.length > 0){
-        updateLocNameError.innerHTML = data.MESSAGE.filter(val => val.includes('Location'))
-        updateLocFacNameError.innerHTML = data.MESSAGE.filter(val => val.includes('Facility'))
-        updateLocSupervisorError.innerHTML = data.MESSAGE.filter(val => val.includes('Supervisor'))
-        updateLocClanerError.innerHTML = data.MESSAGE.filter(val => val.includes('Cleaner'))
-        if(data.MESSAGE.filter(val => val.includes('Location')).length > 0)
-          updateLocName.style.border = redBorder
-        if(data.MESSAGE.filter(val => val.includes('Facility')).length > 0)
-          updateLocFacName.style.border = redBorder
-        if(data.MESSAGE.filter(val => val.includes('Supervisor')).length > 0)
-          updateLocSupervisor.style.border = redBorder
-        if(data.MESSAGE.filter(val => val.includes('Cleaner')).length > 0)
-          updateLocCleaner.style.border = redBorder
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.CODE == 0) {
+        document.querySelector("#update-loc-close-btn").click();
+        location.reload();
       }
-    }
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+      if (data.CODE == -1) {
+        if (data.MESSAGE.length > 0) {
+          updateLocNameError.innerHTML = data.MESSAGE.filter((val) =>
+            val.includes("Location")
+          );
+          updateLocFacNameError.innerHTML = data.MESSAGE.filter((val) =>
+            val.includes("Facility")
+          );
+          updateLocSupervisorError.innerHTML = data.MESSAGE.filter((val) =>
+            val.includes("Supervisor")
+          );
+          updateLocClanerError.innerHTML = data.MESSAGE.filter((val) =>
+            val.includes("Cleaner")
+          );
+          if (data.MESSAGE.filter((val) => val.includes("Location")).length > 0)
+            updateLocName.style.border = redBorder;
+          if (data.MESSAGE.filter((val) => val.includes("Facility")).length > 0)
+            updateLocFacName.style.border = redBorder;
+          if (
+            data.MESSAGE.filter((val) => val.includes("Supervisor")).length > 0
+          )
+            updateLocSupervisor.style.border = redBorder;
+          if (data.MESSAGE.filter((val) => val.includes("Cleaner")).length > 0)
+            updateLocCleaner.style.border = redBorder;
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
-async function deleteLocation(){
+async function deleteLocation() {
   // console.log(delLocSubmitBtn.getAttribute('uid'))
   RData = {
-    LOCATION_UID: delLocSubmitBtn.getAttribute('uid')
-  }
-  Object.assign(RData, RequestData())
+    LOCATION_UID: delLocSubmitBtn.getAttribute("uid"),
+  };
+  Object.assign(RData, RequestData());
   await fetch(`${domain}API/?act=removeLocation`, {
     method: "POST",
     headers: {
@@ -451,26 +555,26 @@ async function deleteLocation(){
     },
     body: JSON.stringify(RData),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    if(data.CODE == 0){
-      document.querySelector('#delete-loc-close-btn').click();
-      location.reload();
-    } else {
-      alert("Can't delete Location")
-    }
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.CODE == 0) {
+        document.querySelector("#delete-loc-close-btn").click();
+        location.reload();
+      } else {
+        alert("Can't delete Location");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
-homeTabFac.addEventListener('click', e => {
-  dottedBar.showLoading()
+homeTabFac.addEventListener("click", (e) => {
+  dottedBar.showLoading();
   reqD = {
     FACILITY_NAME: curPage,
     TIME: "DAY",
-    SENSOR_TYPE: air
+    SENSOR_TYPE: air,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getFacilityEventData`, {
@@ -478,7 +582,7 @@ homeTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -488,7 +592,7 @@ homeTabFac.addEventListener('click', e => {
         xLabel.push(air["TIME"].slice(11, 16));
         lineD.push(Math.round(air["AVG(EVENTS.SENSOR_DATA)"]));
       });
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       updateDottedBar(
         xLabel,
         "Average Air Quality in 30 mins",
@@ -498,14 +602,14 @@ homeTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
-profileTabFac.addEventListener('click', e => {
-  dottedBar.showLoading()
+profileTabFac.addEventListener("click", (e) => {
+  dottedBar.showLoading();
   reqD = {
     FACILITY_NAME: curPage,
     TIME: "DAY",
-    SENSOR_TYPE: motion
+    SENSOR_TYPE: motion,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getFacilityEventData`, {
@@ -513,7 +617,7 @@ profileTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -523,7 +627,7 @@ profileTabFac.addEventListener('click', e => {
         xLabel.push(motion["TIME"].slice(11, 16));
         lineD.push(Math.round(motion["SUM(EVENTS.SENSOR_DATA)"]));
       });
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       updateDottedBar(
         xLabel,
         "Total Detection in 30 mins",
@@ -533,14 +637,14 @@ profileTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
-contactTabFac.addEventListener('click', e => {
-  dottedBar.showLoading()
+contactTabFac.addEventListener("click", (e) => {
+  dottedBar.showLoading();
   reqD = {
     FACILITY_NAME: curPage,
     TIME: "DAY",
-    SENSOR_TYPE: distance
+    SENSOR_TYPE: distance,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getFacilityEventData`, {
@@ -548,7 +652,7 @@ contactTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -558,7 +662,7 @@ contactTabFac.addEventListener('click', e => {
         xLabel.push(distance["TIME"].slice(11, 16));
         lineD.push(Math.round(distance["AVG(EVENTS.SENSOR_DATA)"]));
       });
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       updateDottedBar(
         xLabel,
         "Average Trash Fill Level in 30 mins",
@@ -568,7 +672,7 @@ contactTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
 addLocImgLink.addEventListener("input", (e) => {
   if (e.target.value != "") {
@@ -681,7 +785,7 @@ updateLocSupervisor.addEventListener("input", (e) => {
                 updateLocSupervisor.value = e.target.innerHTML;
                 updateLocSupervisor.setAttribute("uid", fac.CODE);
                 updateLocSupervisor.style.border = oriBorder;
-                updateLocSupervisorError.innerHTML = ''
+                updateLocSupervisorError.innerHTML = "";
               }
             });
             updateLocSupervisorSugg.appendChild(b);
@@ -764,8 +868,8 @@ updateLocCleaner.addEventListener("input", (e) => {
                 removeChildEl("update-loc-cleaner-suggest");
                 updateLocCleaner.value = e.target.innerHTML;
                 updateLocCleaner.setAttribute("uid", fac.CODE);
-                updateLocCleaner.style.border = oriBorder
-                updateLocClanerError.innerHTML = ''
+                updateLocCleaner.style.border = oriBorder;
+                updateLocClanerError.innerHTML = "";
               }
             });
             updateLocCleanerSugg.appendChild(b);
@@ -848,8 +952,8 @@ updateLocFacName.addEventListener("input", (e) => {
                 removeChildEl("update-loc-fac-name-suggest");
                 updateLocFacName.value = e.target.innerHTML;
                 updateLocFacName.setAttribute("uid", fac.UID);
-                updateLocFacName.style.border = oriBorder
-                updateLocFacNameError.innerHTML = ''
+                updateLocFacName.style.border = oriBorder;
+                updateLocFacNameError.innerHTML = "";
               }
             });
             updateLocFacNameSugg.appendChild(b);
