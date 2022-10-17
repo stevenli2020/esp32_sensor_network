@@ -64,7 +64,7 @@
             <div class="col-sm-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">10</h5>
+                        <h5 class="card-title" id="detail-alert-day">0</h5>
                         <p class="card-text">Alerts over the past day</p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
             <div class="col-sm-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">15</h5>
+                        <h5 class="card-title" id="detail-alert-week">0</h5>
                         <p class="card-text">Alerts over the past 7 days</p>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <div class="col-sm-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">123</h5>
+                        <h5 class="card-title" id="detail-alert-month">0</h5>
                         <p class="card-text">Alerts over the past 30 days</p>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <i class="fa-solid fa-stopwatch text-center pt-2" style="font-size: 30px;"></i>
                     <div class="card-body text-center">
                     <h5 class="card-title">Employee time saved</h5>
-                        <p class="card-text"><strong>65.4 Hours</strong></p>
+                        <p class="card-text"><strong>0 Hours</strong></p>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                     <i class="fa-regular fa-bell text-center pt-2" style="font-size: 30px;"></i>
                     <div class="card-body text-center">
                     <h5 class="card-title">Alert Free</h5>
-                        <p class="card-text"><strong>100%</strong></p>
+                        <p class="card-text"><strong>0%</strong></p>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
         </div>
     </div>
     
-    <?php include "/var/www/html/dashBoard/Facility/locationAlert.php"?>
+    <?php include "/var/www/html/dashBoard/Detail/detailAlert.php"?>
     <?php include "/var/www/html/dashBoard/updateUserForm.php"?>
     <script src="../../JS/Utils.js"></script>
     <script src="../../JS/config.js"></script>

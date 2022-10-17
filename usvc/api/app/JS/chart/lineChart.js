@@ -1,4 +1,3 @@
-// updateLine('1 Hour')
 
 async function updateLine(timeSelect, sensorName, sensorID) {
   // if (checkEl("lineChart") != null) {
@@ -78,18 +77,19 @@ async function updateLine(timeSelect, sensorName, sensorID) {
       xAxis: {
         data: sensorValue
           ? sensorValue.map(function (item) {
+              // console.log(item["TIME"])
               return item["TIME"];
             })
-          : null,
+          : ["2000-06-05", "2000-06-06", "2000-06-07", "2000-06-08", "2000-06-09"],
       },
       yAxis: {
-        min: sensorValue
-          ? Math.min(
-              sensorValue.map(function (item) {
-                return item["TIME"];
-              })
-            )
-          : null,
+        // min: sensorValue
+        //   ? Math.min(
+        //       sensorValue.map(function (item) {
+        //         return item["SENSOR_DATA"];
+        //       })
+        //     )
+        //   : null,
       },
       toolbox: {
         right: 10,

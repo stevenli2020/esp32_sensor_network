@@ -1,5 +1,5 @@
 <div class="container mt-3 mb-5">
-    <h3>Fault Tracking</h3>
+    <h3>Page alerts log</h3>
     <table class="table table-striped" id="fac-fault-table">
         <thead>
             <tr>
@@ -43,7 +43,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Alert Details</h5>
         <button type="button" class="btn-close" id="fac-alert-X-btn" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="fac-alert-modal-body">
@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer" id="fac-alert-modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="fac-alert-close-btn">Close</button>
-        <!-- <button type="button" onclick="facAck()" class="btn btn-primary">Acknowledge</button> -->
+        
       </div>
     </div>
   </div>

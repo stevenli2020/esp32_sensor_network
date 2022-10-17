@@ -37,8 +37,13 @@
         
            
     <script src="../JS/Utils.js"></script>       
-    <script src="../JS/chart/ringGuage.js"></script>       
-    <script src="../JS/chart/pie.js"></script>       
+    <!-- <script src="../JS/chart/ringGuage.js"></script>        -->
+    <!-- <script src="../JS/chart/pie.js"></script>        -->
+    <!-- <script src="../JS/chart/dashBoardHeaderline.js"></script>        -->
+    <script src="../JS/chart/CPU.js"></script>       
+    <script src="../JS/chart/memory.js"></script>       
+    <script src="../JS/chart/bytes.js"></script>       
+    <script src="../JS/chart/events.js"></script>       
     <script src="../JS/dashBoard.js"></script>
 </body>
 </html>

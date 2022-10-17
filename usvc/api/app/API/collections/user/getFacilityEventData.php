@@ -92,7 +92,7 @@ if (checkRequest()) {
         // $RESPONSE -> DATA[] = $temp;             
     } else {
         $RESPONSE -> CODE = CODE_ERROR;
-        $RESPONSE -> MESSAGE = "Fail to get data of this location";
+        $RESPONSE -> MESSAGE = "Fail to get data of this facility";
         echo json_encode($RESPONSE);
         die();
     }

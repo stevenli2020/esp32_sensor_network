@@ -3,9 +3,9 @@ const offcanvasLogin = document.getElementById("offcanvas-login");
 const offcanvasLogout = document.getElementById("offcanvas-logout");
 const offcanvasHeader = document.getElementById("offcanvas-header");
 // tabs
-const homeTabFac = document.getElementById('home-tab')
-const profileTabFac = document.getElementById('profile-tab')
-const contactTabFac = document.getElementById('contact-tab')
+const homeTabFac = document.getElementById("home-tab");
+const profileTabFac = document.getElementById("profile-tab");
+const contactTabFac = document.getElementById("contact-tab");
 // add node form
 const addSensorForm = document.getElementById("addSensorForm");
 const addSensorName = document.getElementById("add-sensor-name");
@@ -55,13 +55,21 @@ const updateSensorCloseBtn = document.getElementById("update-sensor-close-btn");
 const updateSensorSubmitBtn = document.getElementById(
   "update-sensor-submit-btn"
 );
-const updateSensorAlertVal = document.getElementById("update-sensor-alert-value");
+const updateSensorAlertVal = document.getElementById(
+  "update-sensor-alert-value"
+);
 // delete node form
 const delSensorForm = document.getElementById("deleteSensorForm");
 const delSensorXBtn = document.getElementById("delete-sensor-x-btn");
 const deleteSensorFormBody = document.getElementById("deleteSensorFormBody");
 const delSensorCloseBtn = document.getElementById("delete-sensor-close-btn");
 const delSensorSubmitBtn = document.getElementById("delete-sensor-submit-btn");
+// alert modal
+const nodeAlertModal = document.getElementById("node-alert-modal");
+const nodeAlertXBtn = document.getElementById("node-alert-X-btn");
+const nodeAlertCloseBtn = document.getElementById("node-alert-close-btn");
+const nodeAlertModalBody = document.getElementById("node-alert-modal-body");
+const nodeAlertModalFooter = document.getElementById("node-alert-modal-footer");
 
 // get current page
 var curPage = window.location.href.split("=")[1].replaceAll("%20", " ");
@@ -72,7 +80,7 @@ removeChildEl("locations-list");
 offcanvasChildElRemove("offcanvasEl");
 offcanvasHomeliCreate("offcanvasEl", "Home");
 offcanvasHomeliCreate("offcanvasEl", "Dash Board");
-
+UNAME = getCookie("USERNAME");
 if (checkLogin()) {
   TYPE = getCookie("TYPE");
   //   console.log(TYPE, typeof(TYPE), TYPE != 0)
@@ -110,7 +118,6 @@ if (checkLogin()) {
   //   `<i class="fa-solid fa-chart-column"></i> ${curPage[0]}`
   // );
 
-  UNAME = getCookie("USERNAME");
   offcanvasLogin.innerHTML = `<a class="nav-link" aria-current="page">${UNAME} <i class="fa-solid fa-user"></i></a>`;
   offcanvasLogin.setAttribute("onclick", `userDetail('${UNAME}')`);
   offcanvasLogin.setAttribute("type", "button");
@@ -128,7 +135,7 @@ if (checkLogin()) {
 let reqD = {
   LOCATION_ID: curPage[1],
   TIME: "DAY",
-  SENSOR_TYPE: air
+  SENSOR_TYPE: air,
 };
 Object.assign(reqD, RequestData());
 fetch(`${domain}API/?act=getLocationEventData`, {
@@ -136,7 +143,7 @@ fetch(`${domain}API/?act=getLocationEventData`, {
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify(reqD)
+  body: JSON.stringify(reqD),
 })
   .then((response) => response.json())
   .then((data) => {
@@ -213,57 +220,232 @@ fetch(`${domain}API/?act=getSensors`, {
   })
   .catch((error) => console.log(error));
 
+fetch(`${domain}API/?act=getLocationAlertsData`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(rData),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log(data);
+    if (data.CODE == 0) {
+      data.DATA.forEach((alert) => {
+        msg = alert.MESSAGE.replaceAll("%20", "").split("at");
+        // console.log(msg)
+        var loc, category, status, action;
+        if (msg.length > 2) {
+          msg = msg[msg.length - 1];
+        } else {
+          msg = msg[1];
+        }
+        if (msg.includes("traffic")) {
+          loc = msg.split("traffic")[0];
+          category = "Traffic Counter";
+        } else {
+          loc = msg.split("air-quality")[0];
+          category = "Air Quality";
+        }
+        if (alert.STATUS == 0) {
+          status =
+            '<span style="color: #fcba03;"><i class="fa-solid fa-arrow-trend-up"></i></span> In Progress';
+          action =
+            '<span style="color: #fcba03;"><i class="fa-solid fa-square-pen"></i></span> Update';
+        } else if (alert.STATUS == 1) {
+          action =
+            '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Updated';
+          status =
+            '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Acknowledge';
+        }
+        newRow = $(
+          "<tr onclick=clickedRow(" +
+            alert.ID +
+            ") style='cursor: pointer;'><td>" +
+            alert.ID +
+            "</td><td>" +
+            alert.TIME +
+            "</td><td>" +
+            loc +
+            "</td><td>" +
+            category +
+            "</td><td>" +
+            status +
+            "</td><td>" +
+            action +
+            "</td></tr>"
+        );
+        $("#node-fault-table tbody").append(newRow);
+      });
+    }
+    if (data.CODE == -1) {
+    }
+  })
+  .catch((error) => console.log(error));
+
+function clickedRow(id) {
+  // console.log(id)
+  rData = {
+    ID: id,
+  };
+  Object.assign(rData, RequestData());
+  fetch(`${domain}API/?act=getAlert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data)
+      if (data.CODE == 0) {
+        nodeAlertModal.classList.add("fade");
+        nodeAlertModal.classList.add("show");
+        nodeAlertModal.style = "display: block;";
+        if (checkEl("node-alert-modal-footer-childBtn")) {
+          removeEl("node-alert-modal-footer-childBtn");
+        }
+        removeChildEl("node-alert-modal-body");
+        data.DATA.forEach((al) => {
+          // console.log(al)
+          var pId = document.createElement("p");
+          var pTime = document.createElement("p");
+          var pMessage = document.createElement("p");
+          var pNotiUsers = document.createElement("p");
+          var pStatus = document.createElement("p");
+          pId.innerHTML = "<strong>ID:</strong> " + al.ID;
+          pTime.innerHTML = "<strong>Time:</strong> " + al.TIME;
+          pMessage.innerHTML = "<strong>Alert Message:</strong> " + al.MESSAGE;
+          // user = al.NOTIFIED_USERS.replaceAll(/\"\[\]/g, "")
+          user = al.NOTIFIED_USERS.replaceAll('"', "");
+          user = user.replaceAll("[", "");
+          user = user.replaceAll("]", "");
+          if (user.includes(",")) user = user.split(",");
+          pNotiUsers.innerHTML =
+            "<strong>Notified Users:</strong> " +
+            user.map(
+              (u) =>
+                `<button class="btn btn-outline-primary" disabled>${u}</button>`
+            );
+          if (al.STATUS == 0)
+            pStatus.innerHTML = "<strong>Status:</strong> In Progress";
+          else
+            pStatus.innerHTML = `<strong>Acknowledged by</strong> <button class="btn btn-outline-primary" disabled>${al.ACK_USER}</button>`;
+          nodeAlertModalBody.appendChild(pId);
+          nodeAlertModalBody.appendChild(pTime);
+          nodeAlertModalBody.appendChild(pMessage);
+          nodeAlertModalBody.appendChild(pNotiUsers);
+          nodeAlertModalBody.appendChild(pStatus);
+          if (user.includes(UNAME) && al.STATUS == 0) {
+            // console.log(UNAME)
+            var btn = document.createElement("button");
+            btn.setAttribute("type", "button");
+            btn.setAttribute("class", "btn btn-primary");
+            btn.setAttribute("onclick", `nodeAck(${al.ID})`);
+            btn.setAttribute("id", "node-alert-modal-footer-childBtn");
+            btn.innerText = "Acknowledge";
+            nodeAlertModalFooter.appendChild(btn);
+          }
+        });
+      }
+      if (data.CODE == -1) {
+        alert(data.MESSAGE);
+        // window.location.href = dashBoardPage
+      }
+    })
+    .catch((error) => console.log(error));
+}
+
+function nodeAck(id) {
+  // console.log(id)
+  rData = {
+    ID: id,
+    LOGIN_NAME: UNAME,
+  };
+  Object.assign(rData, RequestData());
+  fetch(`${domain}API/?act=updateAlert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.CODE == 0) {
+        document.querySelector("#node-alert-close-btn").click();
+        location.reload();
+      }
+      if (data.CODE == -1) {
+        alert(data.MESSAGE);
+        // window.location.href = dashBoardPage
+      }
+    })
+    .catch((error) => console.log(error));
+}
+
+nodeAlertCloseBtn.addEventListener("click", (e) => {
+  nodeAlertModal.classList.remove("fade");
+  nodeAlertModal.classList.remove("show");
+  nodeAlertModal.style = "display: none;";
+});
+
+nodeAlertXBtn.addEventListener("click", (e) => {
+  nodeAlertModal.classList.remove("fade");
+  nodeAlertModal.classList.remove("show");
+  nodeAlertModal.style = "display: none;";
+});
+
 function chartTimeSelect(timeSelect) {
   document.querySelector("#Close-button").click();
-  type = air
-  legendName = ''
-  lineS = 10
-  dottedBar.showLoading()
+  type = air;
+  legendName = "";
+  lineS = 10;
+  dottedBar.showLoading();
   // console.log(timeSelect, locName, locID, sensorType);
-  if(homeTabFac.classList.contains("active")){
-    type = air
-    legendName = "Average Air Quality in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+  if (homeTabFac.classList.contains("active")) {
+    type = air;
+    legendName = "Average Air Quality in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
-  } else if(profileTabFac.classList.contains('active')){
-    type = motion
-    legendName = "Total Detection in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+  } else if (profileTabFac.classList.contains("active")) {
+    type = motion;
+    legendName = "Total Detection in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
-  } else if(contactTabFac.classList.contains('active')){
-    type = distance
-    legendName = "Average Fill Level in"
-    if(timeSelect == "HOUR") legendName = `${legendName} 5 mins`
-    else if(timeSelect == "DAY") {
-      legendName = `${legendName} 30 mins`
-      if(window.innerWidth < 500) lineS = 6
-    }
-    else if(timeSelect == "WEEK") legendName = `${legendName} 6 hours`
+  } else if (contactTabFac.classList.contains("active")) {
+    type = distance;
+    legendName = "Average Fill Level in";
+    if (timeSelect == "HOUR") legendName = `${legendName} 5 mins`;
+    else if (timeSelect == "DAY") {
+      legendName = `${legendName} 30 mins`;
+      if (window.innerWidth < 500) lineS = 6;
+    } else if (timeSelect == "WEEK") legendName = `${legendName} 6 hours`;
     else {
-      legendName = `${legendName} 1 day`
-      if(window.innerWidth < 500) lineS = 8
+      legendName = `${legendName} 1 day`;
+      if (window.innerWidth < 500) lineS = 8;
     }
   }
   RData = {
     LOCATION_ID: curPage[1],
     TIME: timeSelect,
-    SENSOR_TYPE: type
+    SENSOR_TYPE: type,
   };
   Object.assign(RData, RequestData());
   fetch(`${domain}API/?act=getLocationEventData`, {
@@ -278,24 +460,26 @@ function chartTimeSelect(timeSelect) {
       // console.log(data);
       let xLabel = [];
       let lineD = [];
-      if(type == air || type == distance){
+      if (type == air || type == distance) {
         data.DATA?.forEach((air) => {
-          if(timeSelect == "HOUR" || timeSelect == "DAY") xLabel.push(air["TIME"].slice(11, 16));
-          else if(timeSelect == "WEEK") xLabel.push(air["TIME"].slice(5, 16))
-          else xLabel.push(air["TIME"].slice(5, 10))
+          if (timeSelect == "HOUR" || timeSelect == "DAY")
+            xLabel.push(air["TIME"].slice(11, 16));
+          else if (timeSelect == "WEEK") xLabel.push(air["TIME"].slice(5, 16));
+          else xLabel.push(air["TIME"].slice(5, 10));
           lineD.push(Math.round(air["AVG(EVENTS.SENSOR_DATA)"]));
         });
       } else {
         data.DATA?.forEach((motion) => {
-          if(timeSelect == "HOUR" || timeSelect == "DAY") xLabel.push(motion["TIME"].slice(11, 16));
-          else if(timeSelect == "WEEK") xLabel.push(motion["TIME"].slice(5, 16))
-          else xLabel.push(motion["TIME"].slice(5, 10))
+          if (timeSelect == "HOUR" || timeSelect == "DAY")
+            xLabel.push(motion["TIME"].slice(11, 16));
+          else if (timeSelect == "WEEK")
+            xLabel.push(motion["TIME"].slice(5, 16));
+          else xLabel.push(motion["TIME"].slice(5, 10));
           lineD.push(motion["SUM(EVENTS.SENSOR_DATA)"]);
         });
-      }     
-      dottedBar.hideLoading()
-      updateDottedBar(xLabel, legendName, lineD, lineS, legendName)
-      
+      }
+      dottedBar.hideLoading();
+      updateDottedBar(xLabel, legendName, lineD, lineS, legendName);
     })
     .catch((error) => console.log(error));
 }
@@ -422,7 +606,7 @@ async function addSensor() {
     LOC_UID: addSensorLocName.getAttribute("uid"),
     MAC: addSensorMAC.value,
     SENSOR_TYPE: addSensorType.value,
-    THRESHOLD: addSensorAlertVal.value
+    THRESHOLD: addSensorAlertVal.value,
   };
   Object.assign(RData, RequestData());
   await fetch(`${domain}API/?act=addSensor`, {
@@ -489,7 +673,7 @@ async function updateSensor() {
     MAC: updateSensorMAC.value,
     SENSOR_TYPE: updateSensorType.value,
     ID: updateSensorSubmitBtn.getAttribute("uid"),
-    THRESHOLD: updateSensorAlertVal.value
+    THRESHOLD: updateSensorAlertVal.value,
   };
   Object.assign(RData, RequestData());
   await fetch(`${domain}API/?act=updateSensor`, {
@@ -567,13 +751,13 @@ async function deleteSensor() {
     });
 }
 
-homeTabFac.addEventListener('click', e => {
+homeTabFac.addEventListener("click", (e) => {
   // console.log('home tab clicked')
-  dottedBar.showLoading()
+  dottedBar.showLoading();
   reqD = {
     LOCATION_ID: curPage[1],
     TIME: "DAY",
-    SENSOR_TYPE: air
+    SENSOR_TYPE: air,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getLocationEventData`, {
@@ -581,12 +765,12 @@ homeTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       let xLabel = [];
       let lineD = [];
       data.DATA?.forEach((air) => {
@@ -602,14 +786,14 @@ homeTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
-profileTabFac.addEventListener('click', e => {
-  dottedBar.showLoading()
+profileTabFac.addEventListener("click", (e) => {
+  dottedBar.showLoading();
   reqD = {
     LOCATION_ID: curPage[1],
     TIME: "DAY",
-    SENSOR_TYPE: motion
+    SENSOR_TYPE: motion,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getLocationEventData`, {
@@ -617,12 +801,12 @@ profileTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       let xLabel = [];
       let lineD = [];
       data.DATA?.forEach((air) => {
@@ -638,15 +822,15 @@ profileTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
-contactTabFac.addEventListener('click', e => {
-  dottedBar.showLoading()
+contactTabFac.addEventListener("click", (e) => {
+  dottedBar.showLoading();
   // console.log('contact clicked')
   reqD = {
     LOCATION_ID: curPage[1],
     TIME: "DAY",
-    SENSOR_TYPE: distance
+    SENSOR_TYPE: distance,
   };
   Object.assign(reqD, RequestData());
   fetch(`${domain}API/?act=getLocationEventData`, {
@@ -654,12 +838,12 @@ contactTabFac.addEventListener('click', e => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqD)
+    body: JSON.stringify(reqD),
   })
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
-      dottedBar.hideLoading()
+      dottedBar.hideLoading();
       let xLabel = [];
       let lineD = [];
       data.DATA?.forEach((air) => {
@@ -675,7 +859,7 @@ contactTabFac.addEventListener('click', e => {
       );
     })
     .catch((error) => console.log(error));
-})
+});
 
 addSensorMAC.addEventListener("input", (e) => {
   if (e.target.value != "") {

@@ -19,7 +19,7 @@ SpecialSensors={}
 
 
 def on_message(mosq, obj, msg):
-    global SpecialSensors
+    global SpecialSensors,mqttc
     in_data = str(msg.payload)[2:-1]
     print(msg.topic + " - " + in_data)
     TOPIC=msg.topic.split("/")
@@ -54,8 +54,10 @@ def on_message(mosq, obj, msg):
             NODE_BATT_PCT=0
         else:
             NODE_BATT_PCT = (NODE_BATT-3200)/10
-        
         NODE_DATA=int(MSG[3], 16)
+        
+        mqttc.publish("/E/"+COORDINATOR_ID+"/"+CLUSTER_ID+"/"+NODE_ID+"/"+str(EVENT_ID),NODE_TYPE+"-"+str(NODE_BATT)+"-"+str(NODE_DATA)) 
+        
         # print(MSG[3],NODE_DATA)
         if NODE_TYPE=="25":
             # print("Special sensor data arrived")

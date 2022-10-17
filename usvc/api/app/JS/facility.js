@@ -205,14 +205,14 @@ fetch(`${domain}API/?act=getFacilityAlertsData`, {
             '<span style="color: #fcba03;"><i class="fa-solid fa-arrow-trend-up"></i></span> In Progress';
           action =
             '<span style="color: #fcba03;"><i class="fa-solid fa-square-pen"></i></span> Update';
-        } else if (alert.STATUS == 0) {
+        } else if (alert.STATUS == 1) {
           action =
-            '<span style="color: #fcba03;"><i class="fa-solid fa-circle-check"></i></span> Updated';
+            '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Updated';
           status =
             '<span style="color: green;"><i class="fa-solid fa-circle-check"></i></span> Acknowledge';
         }
         newRow = $(
-          "<tr onclick=clickedRow("+alert.ID+")><td>" +
+          "<tr onclick=clickedRow("+alert.ID+") style='cursor: pointer;'><td>" +
             alert.ID +
             "</td><td>" +
             alert.TIME +
@@ -249,19 +249,47 @@ function clickedRow(id){
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.CODE == 0) {
         facAlertModal.classList.add('fade')
         facAlertModal.classList.add('show')
         facAlertModal.style = "display: block;"
+        if(checkEl('fac-alert-modal-footer-childBtn')){
+          removeEl('fac-alert-modal-footer-childBtn')
+        }
+        removeChildEl('fac-alert-modal-body')
         data.DATA.forEach(al => {
-          if(UNAME == al.LOGIN_NAME){
+          // console.log(al)
+          var pId = document.createElement('p')
+          var pTime = document.createElement('p')
+          var pMessage = document.createElement('p')
+          var pNotiUsers = document.createElement('p')
+          var pStatus = document.createElement('p')
+          pId.innerHTML = "<strong>ID:</strong> "+al.ID
+          pTime.innerHTML = "<strong>Time:</strong> "+al.TIME
+          pMessage.innerHTML = "<strong>Alert Message:</strong> "+al.MESSAGE
+          // user = al.NOTIFIED_USERS.replaceAll(/\"\[\]/g, "")
+          user = al.NOTIFIED_USERS.replaceAll('"', "")
+          user = user.replaceAll('[','')
+          user = user.replaceAll(']','')
+          if(user.includes(',')) user = user.split(',')
+          pNotiUsers.innerHTML = "<strong>Notified Users:</strong> "+user.map(u => `<button class="btn btn-outline-primary" disabled>${u}</button>`)
+          if(al.STATUS == 0) pStatus.innerHTML = "<strong>Status:</strong> In Progress"
+          else pStatus.innerHTML = `<strong>Acknowledged by</strong> <button class="btn btn-outline-primary" disabled>${al.ACK_USER}</button>`
+          facAlertModalBody.appendChild(pId)
+          facAlertModalBody.appendChild(pTime)
+          facAlertModalBody.appendChild(pMessage)
+          facAlertModalBody.appendChild(pNotiUsers)
+          facAlertModalBody.appendChild(pStatus)
+          if(user.includes(UNAME) && al.STATUS == 0){
+            // console.log(UNAME)
             var btn = document.createElement('button')
             btn.setAttribute('type', 'button')
             btn.setAttribute('class', 'btn btn-primary')
             btn.setAttribute('onclick', `facAck(${al.ID})`)
+            btn.setAttribute('id', 'fac-alert-modal-footer-childBtn')
             btn.innerText = "Acknowledge"
-
+            facAlertModalFooter.appendChild(btn)
           }
         })
       }
@@ -273,8 +301,33 @@ function clickedRow(id){
     .catch((error) => console.log(error));
 }
 
-function facAck(){
-
+function facAck(id){
+  // console.log(id)
+  rData = {
+    ID: id,
+    LOGIN_NAME: UNAME
+  };
+  Object.assign(rData, RequestData());
+  fetch(`${domain}API/?act=updateAlert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      if (data.CODE == 0) {
+        document.querySelector('#fac-alert-close-btn').click()
+        location.reload()
+      }
+      if (data.CODE == -1) {
+        alert(data.MESSAGE)
+        // window.location.href = dashBoardPage
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 facAlertCloseBtn.addEventListener('click', e => {

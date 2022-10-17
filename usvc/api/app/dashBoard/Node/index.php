@@ -42,7 +42,7 @@
         </li>
     </ul>
     <div id="node-chart"></div>
-    <?php include "/var/www/html/dashBoard/Facility/locationAlert.php"?>
+    <?php include "/var/www/html/dashBoard/Node/nodeAlert.php"?>
     <div class="container mt-5 mb-5">
         <h2>Sensors</h2>
         <div class="list-group" id="locations-list">
