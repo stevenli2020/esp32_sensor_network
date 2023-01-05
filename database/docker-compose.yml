@@ -14,7 +14,7 @@ services:
       options:
         max-size: 10m
     environment:
-      - MYSQL_ROOT_PASSWORD: 000228   
+      - MYSQL_ROOT_PASSWORD: ******   
       - TZ: Asia/Singaproe
     ports:
       - 2203:3306      
